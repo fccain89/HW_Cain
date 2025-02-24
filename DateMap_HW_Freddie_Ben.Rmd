@@ -1,0 +1,93 @@
+---
+title: "DateMap_HW_Freddie_Ben"
+author: "Frederick Cain"
+date: "2025-02-24"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(lubridate)
+library(dplyr)
+library(purrr)
+```
+# 1) Generate a sequence of dates from January 1, 2015 to December 31, 2025, spaced by every two months. Extract the year, quarter, and ISO week number for each date.
+```{r}
+# Generate sequence of dates every two months
+dates_seq <- seq(ymd("2015-01-01"), ymd("2025-12-31"), by = "2 months")
+
+# Extract Year, Quarter, and ISO week
+dates_df <- tibble(
+  date = dates_seq,
+  year = year(dates_seq),
+  quarter = quarter(dates_seq),
+  iso_week = isoweek(dates_seq)
+)
+
+# Print output
+print(dates_df)
+
+```
+# 2) Given the following dates, compute the difference in months and weeks between each con- secutive pair.
+sample_dates <- c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05")
+```{r}
+# Define the date vector
+sample_dates <- ymd(c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05"))
+
+# Compute differences in months and weeks
+date_diffs <- tibble(
+  start_date = head(sample_dates, -1),
+  end_date = tail(sample_dates, -1),
+  months_diff = as.numeric(interval(start_date, end_date) / months(1)),
+  weeks_diff = as.numeric(interval(start_date, end_date) / weeks(1))
+)
+
+# Print output
+print(date_diffs)
+
+```
+# 3) Using map() and map_dbl(), compute the mean, median, and standard deviation for each numeric vector in the following list:
+num_lists <- list(c(4, 16, 25, 36, 49), c(2.3, 5.7, 8.1, 11.4), c(10, 20, 30, 40, 50))
+
+```{r}
+# Define the list of numeric vectors
+num_lists <- list(c(4, 16, 25, 36, 49), c(2.3, 5.7, 8.1, 11.4), c(10, 20, 30, 40, 50))
+
+# Compute mean, median, and standard deviation
+stats_df <- tibble(
+  mean = map_dbl(num_lists, mean),
+  median = map_dbl(num_lists, median),
+  sd = map_dbl(num_lists, sd)
+)
+
+# Print output
+print(stats_df)
+
+```
+# 4) Given a list of mixed date formats, use map() and possibly() from purrr to safely convert them to Date format and extract the month name.
+date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
+```{r}
+# Define the list of mixed date formats
+date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
+
+# Safe date parsing using possibly()
+safe_parse_date <- possibly(ymd, otherwise = NA)
+
+# Convert dates and extract month names
+converted_dates <- map(date_strings, safe_parse_date)
+month_names <- map_chr(converted_dates, ~ ifelse(!is.na(.), month(. , label = TRUE), "Invalid"))
+
+# Store results in tibble
+date_results <- tibble(
+  original = date_strings,
+  parsed_date = converted_dates,
+  month_name = month_names
+)
+
+# Print output
+print(date_results)
+
+```
