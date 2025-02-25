@@ -30,4 +30,27 @@ date_info <- tibble(
 print(head(date_info))
 
 ```
+# 2) Given the following dates, compute the difference in months and weeks between each consecutive pair.
+sample_dates <- c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05")
+```{r}
+# Convert sample_dates to Date format
+sample_dates <- ymd(c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05"))
+
+# Compute differences in months and weeks
+month_diffs <- diff(sample_dates) / dmonths(1)  # Convert to months
+week_diffs <- diff(sample_dates) / dweeks(1)    # Convert to weeks
+
+# Combine results into a tibble
+date_diffs <- tibble(
+  start_date = sample_dates[-length(sample_dates)],
+  end_date = sample_dates[-1],
+  months_diff = round(month_diffs, 2),
+  weeks_diff = round(week_diffs, 2)
+)
+
+# Print output
+print(date_diffs)
+
+```
+
 
