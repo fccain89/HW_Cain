@@ -1,6 +1,6 @@
 ---
 title: "Date_Map_HW_Freddie_Ben.rmd"
-author: "Frederick Cain"
+author: "Frederick & Ben"
 date: "2025-02-25"
 output: pdf_document
 ---
@@ -8,23 +8,26 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Load libraries 
+```{r}
+library(lubridate)
+library(tibble)  
 
-## R Markdown
+```
+# 1) Generate a sequence of dates from January 1, 2015 to December 31, 2025, spaced by every two months. Extract the year, quarter, and ISO week number for each date.
+```{r}
+date_seq <- seq(ymd("2015-01-01"), ymd("2025-12-31"), by = "2 months")
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# Extract year, quarter, and ISO week
+date_info <- tibble(
+  date = date_seq,
+  year = year(date_seq),
+  quarter = quarter(date_seq),
+  iso_week = isoweek(date_seq)
+)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# Print the first few rows
+print(head(date_info))
 
-```{r cars}
-summary(cars)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
