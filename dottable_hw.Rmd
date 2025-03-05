@@ -72,7 +72,11 @@ head(nycdata)
 nycdata[carrier == "UA", carrier := "UnitedAir"]
 
 unique(nycdata[, .(carrier)])
-# b
+# Problem 7b: Change "UA" to "UnitedAir" using tidyverse
+nycdata <- nycdata %>%
+  mutate(carrier = ifelse(carrier == "UA", "UnitedAir", carrier))
+
+nycdata %>% select(carrier) %>% distinct()
 
 ```
 
