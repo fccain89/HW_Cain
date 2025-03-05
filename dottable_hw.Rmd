@@ -46,3 +46,25 @@ nycdata %>%
 filter3
 ```
 
+5) Use the data.table method to add a variable called speed that is the average air speed of the plane in miles per hour.
+```{r}
+# Problem 5 - Add speed variable using data.table
+nycdata[, speed := (distance * 60) / air_time]
+
+# Check if the new column is added
+head(nycdata[, .(carrier, origin, dest, air_time, distance, speed)])
+
+```
+
+6) Use the tidyverse method to add a variable called speed that is the average air speed of the plane in miles per hour.
+```{r}
+
+```
+
+7) Show and use coding to change the carrier abbreviation of UA to UniitedAir,
+7a. data.table method
+7b. tidyverse method (Use a sequence of dplyr commands so that you can see the change in your table)
+```{r}
+
+```
+
