@@ -12,8 +12,9 @@ library(data.table)
 
 1) Use and show data.table code to select the variables year, month, day, and hour from the imported flights data
 ```{r}
-nycdata <- fread("C:/Users/btaus/nycdata.csv") 
-#use your own local folder. I was having issues with relative paths
+nycdata <- fread("nycdata.csv") 
+
+#use your own local folder. I was having issues with relative paths 
 
 filter1 <- nycdata[, .(year, month, day, hour)]
 
@@ -44,14 +45,4 @@ nycdata %>%
 
 filter3
 ```
-
-Use the data.table method to add a variable called speed that is the average air speed of the plane in miles per hour.
-
-Use the tidyverse method to add a variable called speed that is the average air speed of the plane in miles per hour.
-
-Show and use coding to change the carrier abbreviation of UA to UniitedAir,
-    7a. data.table method
-    7b. tidyverse method (Use a sequence of dplyr commands so that you can see the change in your table)
-
-
 
