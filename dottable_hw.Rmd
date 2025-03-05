@@ -69,6 +69,10 @@ head(nycdata)
 7a. data.table method
 7b. tidyverse method (Use a sequence of dplyr commands so that you can see the change in your table)
 ```{r}
+nycdata[carrier == "UA", carrier := "UnitedAir"]
+
+unique(nycdata[, .(carrier)])
+# b
 
 ```
 
