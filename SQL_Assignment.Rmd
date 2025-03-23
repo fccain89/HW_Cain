@@ -1,0 +1,18 @@
+---
+title: "SQL Assignment"
+author: "Frederick Cain"
+date: "2025-03-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{sql, eval=FALSE}
+SELECT origin, AVG(temp) AS mean_temperature
+FROM flights.weather
+GROUP BY origin;
+```
+
+
